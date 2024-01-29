@@ -1,0 +1,24 @@
+
+.form-user {
+    width: 300px;
+}
+
+.activeButton {
+    background: #061828;
+}
+
+.activeSection {
+    background-color: rgb(243 244 246);
+}
+
+.tab-active {
+    background-color: #061828;
+}
+
+.toggle {
+    color: var(--toggle-bg);
+}
+
+label {
+    color: var(--secondary-text-color)
+}
