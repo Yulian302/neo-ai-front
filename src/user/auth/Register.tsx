@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import Logo from "../../components/ui/Logo";
 import DarkLightButton from "../../components/ui/DarkLightButton";
 import DarkModeContext from "../context/DarkModeContext";
@@ -7,21 +13,23 @@ import Cookies from "universal-cookie";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import registerUser from "../../api/registerUser";
-import { Simulate } from "react-dom/test-utils";
-import reset = Simulate.reset;
+import { DarkMode } from "../../../types";
 
 const cookies = new Cookies();
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [message, setMessage] = useState({
+  const [message, setMessage]: [
+    AuthMessage,
+    Dispatch<SetStateAction<AuthMessage>>
+  ] = useState({
     content: "",
-    success: false,
+    success: Boolean(false),
   });
   const navigate = useNavigate();
   const { isAuthenticated, setAuthStatus } = useAuth();
-  const { isDark, setIsDark }: any = useContext(DarkModeContext);
+  const [isDark, setIsDark]: DarkMode = useContext(DarkModeContext);
 
   useEffect(() => {
     setMessage({
@@ -36,11 +44,10 @@ const Register = () => {
       password,
       repeat_password: repeatPassword,
     });
-    const responseData: any = await response.json();
-    console.log(responseData.success);
+    console.log(response.data);
     setMessage({
-      content: responseData.message,
-      success: responseData.success,
+      content: response.data.message,
+      success: response.data.success,
     });
   };
   useEffect(() => {
@@ -48,7 +55,7 @@ const Register = () => {
       cookies.set("csrftoken", r.data["csrftoken"]);
     });
     if (isAuthenticated) {
-      navigate("/dashboard");
+      navigate("/home");
     }
   }, []);
   return (

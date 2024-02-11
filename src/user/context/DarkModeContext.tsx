@@ -1,5 +1,5 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
 
-const DarkModeContext = createContext({});
+const DarkModeContext: React.Context<any> = createContext([]);
 
 export default DarkModeContext;

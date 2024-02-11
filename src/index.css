@@ -11,20 +11,27 @@
     --secondary-text-color: white;
 }
 
+
 [data-theme="light"] {
     --header-background-color: rgb(31 41 55);
     --background-color: white;
     --foreground-color: black;
     --primary-text-color: black;
-    --secondary-text-color: rgb(75, 85, 99);
+    --secondary-text-color: rgb(75, 71, 71);
     --toggle-bg: #f3f30a;
+    --hover-button-bg: #f1f1f1;
+    --hover-nav-bg: #374151;
+    --settings-btn-color: #cbd5e1
 }
 
 [data-theme="dark"] {
-    --header-background-color: rgb(24, 31, 42);
-    --background-color: black;
+    --header-background-color: rgb(60, 97, 150);
+    --background-color: rgb(24, 31, 42);
     --foreground-color: white;
     --primary-text-color: white;
-    --secondary-text-color: #c5c2c2;
-    --toggle-bg: grey;
+    --secondary-text-color: #e5e0e0;
+    --toggle-bg: #ece7e7;
+    --hover-button-bg: rgb(34, 44, 59);
+    --hover-nav-bg: rgb(51, 82, 126);
+    --settings-btn-color: #0F172A
 }

@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Login from "./user/auth/Login";
-import Dashboard from "./user/pages/dashboard/Dashboard";
+import Home from "./user/pages/home/Home";
 import Register from "./user/auth/Register";
 import Settings from "./user/pages/settings/Settings";
-import Models from "./user/pages/models/ModelsPage";
+import ModelsPage from "./user/pages/models/ModelsPage";
 import Team from "./user/pages/team/Team";
 import DarkModeContext from "user/context/DarkModeContext";
 import PrivateRoute from "./user/auth/PrivateRoute";
-import SessionChechker from "./user/auth/SessionChecker";
 import AuthProvider from "./user/context/AuthContext";
-import ModelsPage from "./user/pages/models/ModelsPage";
+import { DarkMode } from "../types";
+import userStore from "./user/redux/store";
+import { Provider } from "react-redux";
+import BuiltinModel from "./builtin/model/BuiltinModel";
+import GeneralSettings from "./components/ui/settings/GeneralSettings";
 
 function App() {
-  const [isDark, setIsDark] = useState(
+  const [isDark, setIsDark]: DarkMode = useState(
     localStorage.getItem("darkMode") === "true"
   );
   useEffect(() => {
@@ -22,25 +30,35 @@ function App() {
   }, [isDark]);
   return (
     <div>
-      <SessionChechker />
-      <DarkModeContext.Provider value={{ isDark, setIsDark }}>
+      <DarkModeContext.Provider value={[isDark, setIsDark]}>
         <Router>
           <AuthProvider>
-            <Routes>
-              {/* public resources */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Register />} />
-
-              {/* private resources */}
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/models" element={<PrivateRoute />}>
-                <Route path="" element={<ModelsPage />} />
-              </Route>
-              <Route path="/dashboard" element={<PrivateRoute />}>
-                <Route path="" element={<Dashboard />} />
-              </Route>
-            </Routes>
+            <Provider store={userStore}>
+              <Routes>
+                {/*root*/}
+                <Route path="" element={<Navigate to="home" />} />
+                {/* public resources */}
+                <Route path="login" element={<Login />} />
+                <Route path="signup" element={<Register />} />
+                {/* private resources */}
+                <Route path="settings" element={<PrivateRoute />}>
+                  <Route index element={<Settings />} />
+                </Route>
+                <Route path="team" element={<PrivateRoute />}>
+                  <Route path="" element={<Team />} />
+                </Route>
+                <Route path="models" element={<PrivateRoute />}>
+                  <Route index element={<ModelsPage />} />
+                  <Route path=":id" element={<BuiltinModel />} />
+                </Route>
+                <Route path="hello" element={<PrivateRoute />}>
+                  <Route index element={<BuiltinModel />} />
+                </Route>
+                <Route path="home" element={<PrivateRoute />}>
+                  <Route path="" element={<Home />} />
+                </Route>
+              </Routes>
+            </Provider>
           </AuthProvider>
         </Router>
       </DarkModeContext.Provider>

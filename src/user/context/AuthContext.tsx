@@ -1,6 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { getSession, isSessionExist } from "../../api/user-auth";
-import sessionChecker from "../auth/SessionChecker";
 import Cookies from "universal-cookie";
 
 const AuthContext = createContext({

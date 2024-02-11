@@ -1,6 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { getCsrfToken } from "../../api/getCsrf";
-import Cookies from "universal-cookie";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import DarkLightButton from "../../components/ui/DarkLightButton";
 import Logo from "../../components/ui/Logo";
@@ -9,25 +13,33 @@ import { GOOGLE_AUTH_URL, params } from "../../api/google-0auth";
 import { useAuth } from "../context/AuthContext";
 import loginUser from "../../api/loginUser";
 
-const cookies = new Cookies();
 const Login = () => {
   const { isAuthenticated, setAuthStatus } = useAuth();
-  const { isDark, setIsDark }: any = useContext(DarkModeContext);
+  const [isDark, setIsDark] = useContext(DarkModeContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage]: [
+    AuthMessage,
+    Dispatch<SetStateAction<AuthMessage>>
+  ] = useState({
+    content: "",
+    success: Boolean(false),
+  });
   const navigate = useNavigate();
   useEffect(() => {
-    getCsrfToken().then((r) => {
-      cookies.set("csrftoken", r.data["csrftoken"]);
-    });
+    // getCsrfToken().then((r) => {
+    //   cookies.set("csrftoken", r.data["csrftoken"]);
+    // });
     if (isAuthenticated) {
-      navigate("/dashboard");
+      navigate("/home");
     }
   }, []);
 
   useEffect(() => {
-    setMessage("");
+    setMessage({
+      content: "",
+      success: false,
+    });
   }, [username, password]);
   const submitLogin = async (event: any) => {
     event.preventDefault();
@@ -35,13 +47,17 @@ const Login = () => {
       username,
       password,
     });
-    if (response.ok) {
+    if (response.status == 200) {
       setAuthStatus(true);
-      const responseData = await response.json();
-      navigate("/dashboard");
+      const responseData = await response.data;
+      navigate("/home");
       sessionStorage.setItem("access", responseData.access);
+      sessionStorage.setItem("refresh", responseData.refresh);
     } else {
-      setMessage("User not found! Invalid username or password");
+      setMessage({
+        content: "User not found! Invalid username or password",
+        success: false,
+      });
     }
   };
 
@@ -116,7 +132,15 @@ const Login = () => {
             </span>
             <a href="/signup">Sign Up</a>
             <div className="my-2">
-              {message && <p className="alert-danger alert">{message}</p>}
+              {message.content && (
+                <p
+                  className={`alert ${
+                    message.success ? "alert-success" : "alert-danger"
+                  }`}
+                >
+                  {message.content}
+                </p>
+              )}
             </div>
             <div className="mt-2.5">
               <div className="border-solid">

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 type PrivateRoute = {
   element: any;
   path: any;
@@ -17,3 +19,7 @@ type User = {
 type AuthUserDetails = {
   isAuthenticated: boolean;
 };
+
+type DarkMode =
+  | [isDark: boolean, setIsDark: Dispatch<SetStateAction<boolean>>]
+  | [];

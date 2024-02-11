@@ -1,7 +1,7 @@
-import axios from "axios";
-import { API_BASE_URL } from "./user-api";
+import axios, { AxiosResponse } from "axios";
+import { API_BASE_URL } from "./userApi";
 
-const getCsrfToken = async () => {
+const getCsrfToken = async (): Promise<AxiosResponse> => {
   return await axios.get(API_BASE_URL + "csrf/");
 };
 
