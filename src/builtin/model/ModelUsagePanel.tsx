@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ImageDropZone from "../ui/ImageDropZone";
 import useModel from "../api/useModel";
 import { AxiosResponse } from "axios";
@@ -12,7 +12,10 @@ const ModelUsagePanel = ({
   modelId,
 }: any) => {
   const handleApplyModel = async () => {
-    const response: AxiosResponse<ModelResultType> = await useModel(modelId);
+    const response: AxiosResponse<ModelResultType> = await useModel(
+      modelId,
+      image
+    );
     setResultInfo({
       ...resultInfo,
       prediction_label: response.data.prediction_label,
@@ -20,7 +23,7 @@ const ModelUsagePanel = ({
     });
   };
   return (
-    <div className="w-[62.5%] flex justify-center">
+    <div className="w-[62.5%] max-[640px]:w-full flex justify-center bg-background-color">
       {/*panel*/}
       <div className="mt-5 w-[90%]">
         <ImageDropZone image={image} setImage={setImage} />

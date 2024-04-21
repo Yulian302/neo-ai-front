@@ -5,19 +5,19 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Model, Models } from "../../templates/models/types";
+import { Model } from "../../templates/models/types";
 import { useParams } from "react-router";
 import getModelDetails from "../api/getModelDetails";
 import { AxiosResponse } from "axios";
-import getModels from "../api/getModels";
-import ImageDropZone from "../ui/ImageDropZone";
 import { Layout } from "../../components/ui/Header";
 import ModelDetailsPanel from "./ModelDetailsPanel";
 import ModelUsagePanel from "./ModelUsagePanel";
 import DarkModeContext from "../../user/context/DarkModeContext";
 import ModelResult from "./ModelResult";
+import { useNavigate } from "react-router-dom";
 
 const BuiltinModel = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [model, setModel]: [Model, Dispatch<SetStateAction<Model>>] = useState(
     {} as Model
@@ -34,8 +34,13 @@ const BuiltinModel = () => {
     const fetchModel = async () => {
       const response: AxiosResponse<Model> = await getModelDetails(Number(id));
       setModel(response.data);
+      return response.data;
     };
-    fetchModel().then((r) => r);
+    fetchModel().then((r) => {
+      if (!r.id) {
+        navigate("/not-found");
+      }
+    });
   }, []);
   const [image, setImage] = useState({
     name: "",
@@ -43,15 +48,16 @@ const BuiltinModel = () => {
     format: "",
     size: "",
     dimension: "",
+    base64: "",
   });
   return (
     <div
-      className="w-full h-[100vh] bg-background-color"
+      className="w-full h-[80vh] bg-background-color"
       data-theme={isDark ? "dark" : "light"}
     >
       <Layout>
         <div className="flex flex-col">
-          <div className="flex [&>*>*]:border-[1px] [&>*>*]:border-[#e7eaf3] [&>*>*]:border-solid [&>*>*]:shadow-[0rem_0.375rem_1.5rem_0rem_rgba(140,152,164,0.125)]">
+          <div className="flex max-[640px]:flex-col [&>*>*]:border-[1px] [&>*>*]:border-[#e7eaf3] [&>*>*]:border-solid [&>*>*]:shadow-[0rem_0.375rem_1.5rem_0rem_rgba(140,152,164,0.125)]">
             <ModelDetailsPanel model={model} />
             <ModelUsagePanel
               image={image}

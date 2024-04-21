@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine as react_build
 
 WORKDIR /app
 
@@ -10,5 +10,5 @@ RUN npm i --silent
 
 COPY . .
 
-CMD ["npm","start"]
+RUN npm run build
 

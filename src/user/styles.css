@@ -105,8 +105,25 @@ label {
     }
 }
 
+.animate-dropmenu {
+    animation: drop 1s;
+}
+
+@keyframes drop {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 @media (min-width: 62em) {
     .featurette-heading {
         margin-top: 7rem;
     }
 }
+

@@ -17,12 +17,14 @@ const DarkLightButton = ({ isDark, setIsDark }: any) => {
           data-theme="dark"
           className="text-toggle-bg"
           size={20}
+          color="yellow"
         />
       ) : (
         <MdOutlineDarkMode
           data-theme="light"
           className="text-toggle-bg"
           size={20}
+          color="gray"
         />
       )}
     </a>

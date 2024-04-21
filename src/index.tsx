@@ -9,10 +9,7 @@ import "bootstrap/js/dist/util/swipe";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
-axios.defaults.withCredentials = true; // even for get requests if
-// demand session authentication
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "x-csrftoken";
+axios.defaults.withCredentials = true;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

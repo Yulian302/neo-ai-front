@@ -1436,6 +1436,32 @@ video {
   }
 }
 
+@media (max-width: 640px) {
+  .max-\[640px\]\:w-full {
+    width: 100%;
+  }
+
+  .max-\[640px\]\:flex-col {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 639px) {
+  .max-\[639px\]\:justify-center {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .max-\[360px\]\:ml-12 {
+    margin-left: 3rem;
+  }
+
+  .max-\[360px\]\:justify-start {
+    justify-content: flex-start;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:static {
     position: static;
@@ -1455,14 +1481,6 @@ video {
 
   .sm\:hidden {
     display: none;
-  }
-
-  .sm\:items-stretch {
-    align-items: stretch;
-  }
-
-  .sm\:justify-start {
-    justify-content: flex-start;
   }
 
   .sm\:px-6 {

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import neoai_logo from "../../../public/images/neoai_logo.png";
 import DarkLightButton from "./DarkLightButton";
 import DarkModeContext from "../../user/context/DarkModeContext";
@@ -7,8 +7,11 @@ import { DarkMode } from "../../../types";
 import { useSelector } from "react-redux";
 import { UserState } from "../../user/types";
 import DropdownMenu from "./menu/DropdownMenu";
+import MobileNavButton from "./nav-elements/MobileNavButton";
+import NavButton from "./nav-elements/NavButton";
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useSelector((state: UserState) => state.user);
   const [isDark, setIsDark]: DarkMode = useContext(DarkModeContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +27,7 @@ const Header = () => {
             <button
               type="button"
               className="relative inline-flex items-center justify-center rounded-md p-2 text-400 hover:bg-[#374151] hover:text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <span className="absolute -inset-0.5"></span>
               <span className="sr-only">Open main menu</span>
@@ -32,7 +36,7 @@ const Header = () => {
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
-                stroke="currentColor"
+                stroke="white"
                 aria-hidden="true"
               >
                 <path
@@ -57,57 +61,15 @@ const Header = () => {
               </svg>
             </button>
           </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div className="flex flex-1 items-center max-[639px]:justify-center max-[360px]:justify-start max-[360px]:ml-12">
             <div className="flex flex-shrink-0 items-center">
               <img className="h-10 w-auto" src={neoai_logo} alt="NeoAi" />
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4 [&>*]:no-underline">
-                <Link
-                  to="/home"
-                  className={`text-[#D1D5DB] hover:text-[#ffffff] rounded-md px-3 py-2 text-sm font-medium ${
-                    location.pathname.includes("home")
-                      ? "tab-active"
-                      : "hover:bg-hover-nav-bg"
-                  }`}
-                  aria-current="page"
-                  id="home"
-                >
-                  Home
-                </Link>
-                <Link
-                  to="/team"
-                  className={`text-[#D1D5DB] hover:text-[#ffffff] rounded-md px-3 py-2 text-sm font-medium ${
-                    location.pathname.includes("team")
-                      ? "tab-active"
-                      : "hover:bg-hover-nav-bg"
-                  }`}
-                  id="team"
-                >
-                  Team
-                </Link>
-                <Link
-                  to="/models"
-                  className={`text-[#D1D5DB] hover:text-[#ffffff] rounded-md px-3 py-2 text-sm font-medium ${
-                    location.pathname.includes("models")
-                      ? "tab-active"
-                      : "hover:bg-hover-nav-bg"
-                  }`}
-                  id="models"
-                >
-                  Models
-                </Link>
-                <Link
-                  to="/settings"
-                  className={`text-[#D1D5DB]  hover:text-[#ffffff] rounded-md px-3 py-2 text-sm font-medium ${
-                    location.pathname.includes("settings")
-                      ? "tab-active"
-                      : "hover:bg-hover-nav-bg"
-                  }`}
-                  id="settings"
-                >
-                  Settings
-                </Link>
+                <NavButton href="/home" name="Home" />
+                <NavButton href="/models" name="Models" />
+                <NavButton href="/settings" name="Settings" />
               </div>
             </div>
           </div>
@@ -157,37 +119,12 @@ const Header = () => {
       </div>
       <DarkLightButton isDark={isDark} setIsDark={setIsDark} />
 
-      <div className="hidden" id="mobile-menu">
-        <div className="space-y-1 px-2 pb-3 pt-2 [&>*]:no-underline">
-          <a
-            href=""
-            className="text-[#D1D5DB] hover:bg-[#374151] hover:text-[#ffffff] block rounded-md px-3 py-2 text-base font-medium"
-            aria-current="page"
-            id="homemob"
-          >
-            Home
-          </a>
-          <a
-            href=""
-            className="text-[#D1D5DB] hover:bg-[#374151] hover:text-[#ffffff] block rounded-md px-3 py-2 text-base font-medium"
-            id="teammob"
-          >
-            Team
-          </a>
-          <a
-            href=""
-            className="text-[#D1D5DB] hover:bg-[#374151] hover:text-[#ffffff] block rounded-md px-3 py-2 text-base font-medium"
-            id="modelsmob"
-          >
-            Models
-          </a>
-          <a
-            href=""
-            className="text-[#D1D5DB] hover:bg-[#374151] hover:text-[#ffffff] block rounded-md px-3 py-2 text-base font-medium"
-            id="settingsmob"
-          >
-            Settings
-          </a>
+      <div className={isMenuOpen ? "" : "hidden"}>
+        <div className="space-y-1 px-2 pb-3 pt-2 [&>*]:no-underline animate-dropmenu">
+          <MobileNavButton href={"/home"} name="Home" />
+          <MobileNavButton href={"/team"} name="Team" />
+          <MobileNavButton href={"/models"} name="Models" />
+          <MobileNavButton href={"/settings"} name="Settings" />
         </div>
       </div>
     </nav>

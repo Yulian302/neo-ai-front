@@ -3,7 +3,7 @@ import { Model } from "../../templates/models/types";
 
 const ModelDetailsPanel = ({ model }: { model: Model }) => {
   return (
-    <div className="w-[37.5%] flex justify-center">
+    <div className="w-[37.5%] max-[640px]:w-full flex justify-center bg-background-color">
       <div className="w-[90%] mt-5 flex flex-col items-center text-primary-text-color py-2 px-5 gap-2">
         <span>{model.desc_name}</span>
         <img src={model.image} alt={model.name} />

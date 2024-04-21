@@ -27,9 +27,6 @@ const Login = () => {
   });
   const navigate = useNavigate();
   useEffect(() => {
-    // getCsrfToken().then((r) => {
-    //   cookies.set("csrftoken", r.data["csrftoken"]);
-    // });
     if (isAuthenticated) {
       navigate("/home");
     }

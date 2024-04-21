@@ -8,14 +8,9 @@ import React, {
 import Logo from "../../components/ui/Logo";
 import DarkLightButton from "../../components/ui/DarkLightButton";
 import DarkModeContext from "../context/DarkModeContext";
-import { getCsrfToken } from "../../api/getCsrf";
-import Cookies from "universal-cookie";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import registerUser from "../../api/registerUser";
 import { DarkMode } from "../../../types";
 
-const cookies = new Cookies();
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,8 +22,6 @@ const Register = () => {
     content: "",
     success: Boolean(false),
   });
-  const navigate = useNavigate();
-  const { isAuthenticated, setAuthStatus } = useAuth();
   const [isDark, setIsDark]: DarkMode = useContext(DarkModeContext);
 
   useEffect(() => {
@@ -44,20 +37,11 @@ const Register = () => {
       password,
       repeat_password: repeatPassword,
     });
-    console.log(response.data);
     setMessage({
       content: response.data.message,
       success: response.data.success,
     });
   };
-  useEffect(() => {
-    getCsrfToken().then((r) => {
-      cookies.set("csrftoken", r.data["csrftoken"]);
-    });
-    if (isAuthenticated) {
-      navigate("/home");
-    }
-  }, []);
   return (
     <div
       className="flex min-h-full flex-col justify-center px-6 pb-32 pt-28 lg:px-8 bg-background-color"

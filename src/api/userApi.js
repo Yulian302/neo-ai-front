@@ -1,3 +1,5 @@
 const API_BASE_URL = "https://localhost:8000/api/";
 
-export { API_BASE_URL };
+const ML_SERVICE_BASE_URL = "https://localhost:8001/";
+
+export { API_BASE_URL, ML_SERVICE_BASE_URL };
