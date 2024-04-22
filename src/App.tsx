@@ -25,8 +25,14 @@ function App() {
     localStorage.getItem("darkMode") === "true"
   );
   useEffect(() => {
+    if (isDark) {
+      document.body.style.backgroundColor = "rgb(24, 31, 42)";
+    } else {
+      document.body.style.backgroundColor = "white";
+    }
     localStorage.setItem("darkMode", String(isDark));
   }, [isDark]);
+
   return (
     <DarkModeContext.Provider value={[isDark, setIsDark]}>
       <Router>
