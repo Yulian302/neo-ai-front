@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserState } from "../../../../user/types";
 import { updateUserAsync } from "../../../../user/redux/userSlice";
+import { UserState } from "../../../../user/types";
 
 const EditableField = ({ label, value, fieldName }: any) => {
   const ref = useRef(null);
@@ -26,8 +26,8 @@ const EditableField = ({ label, value, fieldName }: any) => {
     setIsEditing(false);
   };
   return (
-    <div className="flex pt-6 border-t-2 border-primary-text-color">
-      <dt className="w-[18rem] font-semibold pr-6">
+    <div className="flex pt-6 border-primary-text-color">
+      <dt className="w-[18rem] max-[620px]:w-[8rem] font-semibold pr-6">
         <label htmlFor={fieldName + "Id"}>{label}</label>
       </dt>
       <dd className="flex justify-between flex-auto">
@@ -42,7 +42,11 @@ const EditableField = ({ label, value, fieldName }: any) => {
             ></input>
           ) : (
             <span className="text-primary-text-color">
-              {value ? value : "Not specified"}
+              {value ? (
+                <span className="font-semibold">{value}</span>
+              ) : (
+                <span className="opacity-50">Not specified</span>
+              )}
             </span>
           )}
         </div>

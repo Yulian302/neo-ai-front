@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
-import { useLocation } from "react-router-dom";
-import neoai_logo from "../../../public/images/neoai_logo.png";
-import DarkLightButton from "./DarkLightButton";
-import DarkModeContext from "../../user/context/DarkModeContext";
-import { DarkMode } from "../../../types";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
+import neoai_logo from "../../../public/images/neoai_logo.png";
+import { DarkMode } from "../../../types";
+import DarkModeContext from "../../user/context/DarkModeContext";
 import { UserState } from "../../user/types";
+import DarkLightButton from "./DarkLightButton";
 import DropdownMenu from "./menu/DropdownMenu";
 import MobileNavButton from "./nav-elements/MobileNavButton";
 import NavButton from "./nav-elements/NavButton";
@@ -15,7 +14,6 @@ const Header = () => {
   const user = useSelector((state: UserState) => state.user);
   const [isDark, setIsDark]: DarkMode = useContext(DarkModeContext);
   const [isOpen, setIsOpen] = useState(false);
-  let location = useLocation();
   return (
     <nav
       data-theme={isDark ? "dark" : "light"}
@@ -122,7 +120,6 @@ const Header = () => {
       <div className={isMenuOpen ? "" : "hidden"}>
         <div className="space-y-1 px-2 pb-3 pt-2 [&>*]:no-underline animate-dropmenu">
           <MobileNavButton href={"/home"} name="Home" />
-          <MobileNavButton href={"/team"} name="Team" />
           <MobileNavButton href={"/models"} name="Models" />
           <MobileNavButton href={"/settings"} name="Settings" />
         </div>

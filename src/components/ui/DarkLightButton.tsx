@@ -1,5 +1,4 @@
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import React from "react";
 
 const DarkLightButton = ({ isDark, setIsDark }: any) => {
   const toggleMode = () => {

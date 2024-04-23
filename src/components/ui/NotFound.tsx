@@ -1,6 +1,5 @@
-import React from "react";
-import PageNotFound from "../../../public/images/404.svg";
 import { Link } from "react-router-dom";
+import PageNotFound from "../../../public/images/404.svg";
 
 function NotFound() {
   return (

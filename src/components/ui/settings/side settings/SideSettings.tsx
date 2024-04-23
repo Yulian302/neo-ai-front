@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { PanelState } from "../types";
 import NavPanel from "./NavPanel";
 
@@ -11,16 +11,15 @@ const SideSettings = ({ panelState, setPanelState }: SideSettingsProps) => {
     setPanelState(() => {
       const clone: PanelState = { ...panelState };
       Object.keys(clone).forEach(function (key: string) {
-        // @ts-ignore
-        clone[key] = Boolean(key === name);
+        clone[key as keyof typeof clone] = Boolean(key === name);
       });
       return clone;
     });
   };
   return (
-    <aside className="h-max overflow-x-auto border-b-[0.5px] border-primary-text-color py-[1rem] w-[20rem] block">
+    <aside className="h-max overflow-x-auto  py-[1rem] w-[20rem] block max-[1068px]:self-center max-[1068px]:w-full shadowDiv">
       <nav className="p-0">
-        <ul className="p-0 [&>*>*]:text-primary-text-color flex flex-col gap-x-3 gap-y-1 [&>*>*]:no-underline [&>*>*]:font-bold [&>*>*]:text-sm [&>*>*]:leading-6 hover:[&>*>*]:bg-hover-button-bg">
+        <ul className="p-0 [&>*>*]:text-primary-text-color flex flex-col gap-x-3 gap-y-1 [&>*>*]:no-underline [&>*>*]:font-bold [&>*>*]:text-sm [&>*>*]:leading-6 hover:[&>*>*]:bg-hover-button-bg max-[1068px]:flex-row max-[1068px]:justify-center max-[442px]:flex-col">
           <li>
             <NavPanel
               isActive={panelState.general}

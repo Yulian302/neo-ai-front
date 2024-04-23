@@ -1,18 +1,15 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  Slice,
-  SliceSelectors,
-} from "@reduxjs/toolkit";
-import { PartialUser, User } from "../types";
-import updateUserInfo from "../api/updateUserInfo";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AxiosResponse } from "axios";
 import {
   deleteAllUserNotifications,
   deleteUserNotification,
-} from "../api/deleteNotification";
-import { AxiosResponse } from "axios";
+} from "user/api/deleteNotification";
+import updateUserInfo from "user/api/updateUserInfo";
+import { PartialUser, User, UserNotification } from "user/types";
 
-const updateUserAsync = createAsyncThunk(
+const initialState: PartialUser = {};
+
+export const updateUserAsync = createAsyncThunk(
   "user/updateUserAsync",
   async (updatedUserInfo: User) => {
     const response: AxiosResponse<PartialUser> = await updateUserInfo(
@@ -25,67 +22,59 @@ const updateUserAsync = createAsyncThunk(
       messagePanel!.innerText = "";
     }, 5000);
     if (response.status == 200) {
-      messagePanel!.innerText = "User updated successfully";
+      messagePanel!.innerText = "User profile updated successfully";
       messagePanel?.classList.remove("alert-danger");
       messagePanel?.classList.add("alert-success");
       return response.data;
     } else {
-      messagePanel!.innerText = <string>response.data.username;
+      messagePanel!.innerText = response.data.username
+        ? response.data.username
+        : "User profile can't be updated. Invalid input";
       messagePanel?.classList.remove("alert-success");
       messagePanel?.classList.add("alert-danger");
     }
   }
 );
-const deleteNotificationAsync = createAsyncThunk(
+export const deleteNotificationAsync = createAsyncThunk(
   "user/deleteNotificationAsync",
   async (notificationId: number) => {
     await deleteUserNotification(notificationId);
   }
 );
-const deleteAllNotificationsAsync = createAsyncThunk(
+export const deleteAllNotificationsAsync = createAsyncThunk(
   "user/deleteAllNotificationsAsync",
   async () => {
     await deleteAllUserNotifications();
   }
 );
-export const userSlice: Slice<
-  PartialUser,
-  {
-    setUser: (state: any, action: any) => any;
-    updateUser: (state: any, action: any) => any;
-    deleteNotification: (state: any, action: any) => any;
-    deleteAllNotifications: (state: any, action: any) => any;
-  },
-  string,
-  "user",
-  SliceSelectors<PartialUser>
-> = createSlice({
+
+const userSlice = createSlice({
   name: "user",
-  initialState: {} as PartialUser,
+  initialState: initialState,
   reducers: {
-    setUser: (state: any, action: any) => {
+    setUser: (state, action: PayloadAction<User>) => {
       return {
         ...state,
         ...action.payload,
       };
     },
-    updateUser: (state: any, action: any) => {
+    updateUser: (state, action: PayloadAction<PartialUser>) => {
       return {
         ...state,
         ...action.payload,
       };
     },
-    deleteNotification: (state: any, action: any) => {
+    deleteNotification: (state, action: PayloadAction<number>) => {
       const id = action.payload;
-      const updatedNotifications = state.notifications.filter(
-        (notification: any) => notification.id !== id
+      const updatedNotifications = state.notifications?.filter(
+        (notification: UserNotification) => notification.id !== id
       );
       return {
         ...state,
         notifications: updatedNotifications,
       };
     },
-    deleteAllNotifications: (state: any, action: any) => {
+    deleteAllNotifications: (state) => {
       return {
         ...state,
         notifications: [],
@@ -99,12 +88,12 @@ export const userSlice: Slice<
         ...action.payload,
       };
     });
-    builder.addCase(deleteNotificationAsync.fulfilled, (state, action) => {
+    builder.addCase(deleteNotificationAsync.fulfilled, (state) => {
       return {
         ...state,
       };
     });
-    builder.addCase(deleteAllNotificationsAsync.fulfilled, (state, action) => {
+    builder.addCase(deleteAllNotificationsAsync.fulfilled, (state) => {
       return {
         ...state,
       };
@@ -112,15 +101,11 @@ export const userSlice: Slice<
   },
 });
 
-export {
-  updateUserAsync,
-  deleteNotificationAsync,
-  deleteAllNotificationsAsync,
-};
 export const {
   setUser,
   updateUser,
-  deleteNotification,
   deleteAllNotifications,
+  deleteNotification,
 } = userSlice.actions;
+
 export default userSlice.reducer;

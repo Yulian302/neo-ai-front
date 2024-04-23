@@ -1,18 +1,12 @@
-import { Layout } from "../../../components/ui/Header";
-import { useDispatch, useSelector } from "react-redux";
-import { PartialUser } from "../../types";
 import { useContext } from "react";
-import DarkModeContext from "../../context/DarkModeContext";
 import { Link } from "react-router-dom";
 import CnnImage from "../../../../public/images/cnn.png";
-import MlUsage from "../../../../public/images/usage.jpg";
 import UnetImage from "../../../../public/images/unet.png";
+import MlUsage from "../../../../public/images/usage.jpg";
+import { Layout } from "../../../components/ui/Header";
+import DarkModeContext from "../../context/DarkModeContext";
 
 const Home = () => {
-  const user: PartialUser = useSelector(
-    (state: { user: PartialUser }) => state.user
-  );
-  const dispatch = useDispatch();
   const [isDark] = useContext(DarkModeContext);
   return (
     <div
@@ -69,7 +63,7 @@ const Home = () => {
                 </svg>
                 <div className="container">
                   <div className="carousel-caption text-start">
-                    <h1>Neo AI</h1>
+                    <h1>NeoAi</h1>
                     <p className="opacity-75">
                       An open-source service for storing and using arbitrary ML
                       models.
@@ -195,7 +189,7 @@ const Home = () => {
                     S
                   </text>
                 </svg>
-                <h2 className="fw-normal">Simplicity</h2>
+                <h2 className="fw-normal py-3">Simplicity</h2>
                 <p>
                   Simple and intuitive user interface provides the best usage
                   experience.
@@ -230,7 +224,7 @@ const Home = () => {
                     Q
                   </text>
                 </svg>
-                <h2 className="fw-normal">Quality</h2>
+                <h2 className="fw-normal py-3">Quality</h2>
                 <p>
                   We guarantee quality service for each user who has chosen our
                   application.
@@ -265,7 +259,7 @@ const Home = () => {
                     C
                   </text>
                 </svg>
-                <h2 className="fw-normal">Convenience</h2>
+                <h2 className="fw-normal py-3">Convenience</h2>
                 <p>
                   Each model is easy to use and provides with convenient data
                   manipulation and result analysis.

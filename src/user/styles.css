@@ -1,129 +1,128 @@
-
 .form-user {
-    width: 300px;
+  width: 300px;
 }
 
 .activeButton {
-    background: #061828;
+  background: #061828;
 }
 
 .activeSection {
-    background-color: rgb(243 244 246);
+  background-color: rgb(243 244 246);
 }
 
 .tab-active {
-    background-color: #061828;
+  background-color: #061828;
 }
 
 .toggle {
-    color: var(--toggle-bg);
+  color: var(--toggle-bg);
 }
 
 label {
-    color: var(--secondary-text-color)
+  color: var(--secondary-text-color);
 }
 
 .loadingSpinner {
-    color: teal;
-    font-size: 3rem;
-    animation: animate infinite 1s;
+  color: teal;
+  font-size: 3rem;
+  animation: animate infinite 1s;
 }
 
 @keyframes animate {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(720deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
 }
-
 
 .carousel {
-    margin-bottom: 4rem;
+  margin-bottom: 4rem;
 }
-
 
 .carousel-caption {
-    bottom: 3rem;
-    z-index: 10;
+  bottom: 3rem;
+  z-index: 10;
 }
-
 
 .carousel-item {
-    height: 32rem;
+  height: 32rem;
 }
 
-
 .carousel-item[data-pos="1"] {
-    background: url(https://i.redd.it/6cawig20gef81.png) no-repeat;
-    background-size: cover;
+  background: url(https://i.redd.it/6cawig20gef81.png) no-repeat;
+  background-size: cover;
 }
 
 .carousel-item[data-pos="2"] {
-    background: url(https://assets.newatlas.com/dims4/default/73a19b5/2147483647/strip/true/crop/1827x1028+0+26/resize/1200x675!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Fbrain-cancer-scan-1.jpg) no-repeat;
-    background-size: cover;
+  background: url(https://assets.newatlas.com/dims4/default/73a19b5/2147483647/strip/true/crop/1827x1028+0+26/resize/1200x675!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Fbrain-cancer-scan-1.jpg)
+    no-repeat;
+
+  background-size: cover;
 }
 
 .carousel-item[data-pos="3"] {
-    background: url(https://www.jousefmurad.com/content/images/2022/10/316b0d3b-591e-455f-b721-beaba73d0a0a_2400x1100.png) no-repeat;
-    background-size: cover;
+  background: url(https://www.jousefmurad.com/content/images/2022/10/316b0d3b-591e-455f-b721-beaba73d0a0a_2400x1100.png)
+    no-repeat;
+  background-size: cover;
 }
 
 .marketing .col-lg-4 {
-    margin-bottom: 1.5rem;
-    text-align: center;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
-
 
 .marketing .col-lg-4 p {
-    margin-right: .75rem;
-    margin-left: .75rem;
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
 }
-
-
+.shadowDiv {
+  box-shadow: var(
+    --shadow-panel-eyw753,
+    0 1px 1px 0px rgba(0, 28, 36, 0.3),
+    1px 1px 1px 0 rgba(0, 28, 36, 0.15),
+    -1px 1px 4px 1px rgba(0, 28, 36, 0.15)
+  );
+}
 .circle {
-    margin: auto;
+  margin: auto;
 }
-
 
 .featurette-heading {
-    letter-spacing: -.05rem;
+  letter-spacing: -0.05rem;
 }
 
-
 @media (min-width: 40em) {
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
 
-    .carousel-caption p {
-        margin-bottom: 1.25rem;
-        font-size: 1.25rem;
-        line-height: 1.4;
-    }
-
-    .featurette-heading {
-        font-size: 50px;
-    }
+  .featurette-heading {
+    font-size: 50px;
+  }
 }
 
 .animate-dropmenu {
-    animation: drop 1s;
+  animation: drop 1s;
 }
 
 @keyframes drop {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media (min-width: 62em) {
-    .featurette-heading {
-        margin-top: 7rem;
-    }
+  .featurette-heading {
+    margin-top: 7rem;
+  }
 }
-
