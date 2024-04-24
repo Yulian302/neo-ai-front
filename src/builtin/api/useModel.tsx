@@ -20,10 +20,9 @@ const useModel = async (modelId: number, image: any) => {
 
   try {
     const result: any = await axios.post<ModelResultType>(
-      `${ML_SERVICE_BASE_URL}api/models/${modelId}/usage/`,
+      `${ML_SERVICE_BASE_URL}api/models/${modelId}/use/`,
       {
         image: base64data,
-        name: "ClModel",
       },
       {
         headers: {
